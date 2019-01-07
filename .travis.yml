@@ -13,7 +13,7 @@ jobs:
   include:
     - stage: 'Primary images'
 
-      script: sudo ./stage_1_primary_images/script/script_gdal.sh
-      script: sudo ./stage_1_primary_images/script/script_grass.sh
-      script: sudo ./stage_1_primary_images/script/script_postgresql.sh
-      script: sudo ./stage_1_primary_images/script/script_r.sh
+      script:  ./stage_1_primary_images/script/script_gdal.sh
+      script:  ./stage_1_primary_images/script/script_grass.sh
+      script:  ./stage_1_primary_images/script/script_postgresql.sh
+      script:  ./stage_1_primary_images/script/script_r.sh
