@@ -16,4 +16,4 @@ jobs:
       script: ./stage_1_primary_images/script/script_gdal 1
       script: ./stage_1_primary_images/script/script_grass 2
       script: ./stage_1_primary_images/script/script_postgresql 3
-      script: ./stage_1_primary_images/script/script_r 4
+      
