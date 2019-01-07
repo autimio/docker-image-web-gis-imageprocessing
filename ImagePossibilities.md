@@ -1,49 +1,37 @@
-# Image Possibilities
+## Image Possibilities
 
-## 1. Primary Image
-    1.01 - Gdal (1)
-    1.02 - Grass (2)
-    1.03 - PostgreSQL (3)
-    1.04 - R (4)
-
-## 2. Secondary Image
-    2.01 - Gdal[1] + Grass (5)
-    2.02 - Gdal[1] + PostgreSQL (6)
-    2.03 - Gdal[1] + R (7)
-    2.04 - Grass[2] + PostgreSQL (8)
-    2.05 - Grass[2] + R (9)
-    2.06 - PostgreSQL[3] + R (10)
-    2.07 - PostgreSQL[3] + PostGIS (11)
-    2.08 - R[4] + R_Geo_Libs (12)
-
-## 3. Tertiary Image    
-    3.01 - (Gdal + Grass)[5] + PostgreSQL (13)
-    3.02 - (Gdal + Grass)[5] + R (14)
-    3.03 - (Gdal + PostgreSQL)[6] + PostGIS (15)
-    3.04 - (Gdal + PostgreSQL)[6] + R (16)
-    3.05 - (Gdal + R)[7] + PostgreSQL (17)
-    3.06 - (Grass + PostgreSQL)[8] + R (18)
-    3.07 - (Grass + PostgreSQL)[8] + PostGIS (19)
-    3.08 - (R + R_Geo_Libs)[12] + PostgreSQL (20)
-    3.09 - (R + R_Geo_Libs)[12] + Gdal (21)
-    3.10 - (R + R_Geo_Libs)[12] + Grass (22)
-
-## 4. Quaternary Image
-    4.01 - (Gdal + Grass + PostgreSQL)[13] + R (23)
-    4.02 - (Gdal + Grass + R)[14] + R_Geo_Libs (24)
-    4.03 - (Gdal + PostgreSQL + PostGIS)[14] + R (25)
-    4.04 - (Gdal + PostgreSQL + PostGIS)[14] + Grass (26)
-    4.05 - (Gdal + PostgreSQL + R)[15] + R_Geo_Libs (27)
-    4.06 - (Gdal + PostgreSQL + R)[15] + Grass (28)
-    4.07 - (Grass + PostgreSQL + PostGIS)[18] + R (29)
-    4.08 - (Grass + PostgreSQL + R)[17] + R_Geo_Libs (30)
-
-## 5. Quinary Image
-    5.01 (Gdal + Grass + PostgreSQL + R)[22] + R_Geo_Libs (31)
-    5.02 (Gdal + PostgreSQL + PostGIS + R)[25] + R_Geo_Libs (32)
-    5.03 (Grass + PostgreSQL + PostGIS + R)[29] + R_Geo_Libs (33)
-    5.04 (Grass + PostgreSQL + R + R_Geo_Libs)[30] + PostGIS (34)
-
-## 6. Final Image
-    6.01 (Gdal + PostgreSQL + PostGIS + R + R_Geo_Libs)[32] + Grass (35)
-
+| Softwares                                            | Image base                               | software added | Image name                               | Job | 
+|------------------------------------------------------|------------------------------------------|----------------|------------------------------------------|-----| 
+| Gdal                                                 | tomcat                                   | gdal           | gdal                                     | 1   | 
+| Grass                                                | tomcat                                   | grass          | grass                                    | 1   | 
+| PostgreSQL                                           | tomcat                                   | postgresql     | postgresql                               | 1   | 
+| R                                                    | tomcat                                   | r              | r                                        | 1   | 
+| Gdal + Grass                                         | gdal                                     | grass          | gdal:grass                               | 2   | 
+| Gdal + PostgreSQL                                    | gdal                                     | postgresql     | gdal:postgresql                          | 2   | 
+| Gdal + R                                             | gdal                                     | r              | gdal:r                                   | 2   | 
+| Grass + PostgreSQL                                   | grass                                    | postgresql     | grass:postgresql                         | 2   | 
+| Grass + R                                            | grass                                    | r              | grass:r                                  | 2   | 
+| PostgreSQL + R                                       | r                                        | postgresql     | r:postgres                               | 2   | 
+| PostgreSQL + PostGIS                                 | postgresql                               | postgis        | postgresql:postgis                       | 2   | 
+| R + R_Geo_Libs                                       | r                                        | rgeolibs       | r:rgeolibs                               | 2   | 
+| Gdal + Grass + PostgreSQL                            | gdal:grass                               | postgresql     | gdal:grass-postgresql                    | 3   | 
+| Gdal + Grass + R                                     | gdal:grass                               | r              | gdal:grass-r                             | 3   | 
+| Gdal + PostgreSQL + PostGIS                          | gdal:postgresql                          | postgis        | gdal:postgresql-postgis                  | 3   | 
+| Gdal + PostgreSQL + R                                | gdal:postgresql                          | r              | gdal:postgresql-r                        | 3   | 
+| Grass + PostgreSQL + R                               | grass:postgresql                         | r              | grass:postgresql-r                       | 3   | 
+| Grass + PostgreSQL + Postgis                         | grass:postgresql                         | postgis        | grass:postgresql-postgis                 | 3   | 
+| R + R_Geo_Libs + PostgreSQL                          | r:rgeolibs                               | postgresql     | r:rgeolibs-postgres                      | 3   | 
+| R + R_Geo_Libs + Gdal                                | r:rgeolibs                               | gdal           | r:rgeolibs-gdal                          | 3   | 
+| R + R_Geo_Libs + Grass                               | r:rgeolibs                               | grass          | r:rgeolibs-grass                         | 3   | 
+| Gdal + Grass + PostgreSQL + R                        | gdal:grass-postgresql                    | r              | gdal:grass-postgresql-r                  | 4   | 
+| Gdal + Grass + R + R_Geo_Libs                        | gdal:grass-r                             | rgeolibs       | gdal:grass-r-rgeolibs                    | 4   | 
+| Gdal + PostgreSQL + PostGIS + R                      | gdal:postgresql-postgis                  | r              | gdal:postgresql-postgis-r                | 4   | 
+| Gdal + PostgreSQL + PostGIS + Grass                  | gdal:postgresql-postgis                  | grass          | gdal:postgresql-postgis-grass            | 4   | 
+| Gdal + PostgreSQL + R + R_Geo_Libs                   | gdal:postgresql-r                        | rgeolibs       | gdal:postgresql-r-rgeolibs               | 4   | 
+| Gdal + PostgreSQL + R + Grass                        | gdal:postgresql-r                        | grass          | gdal:postgresql-r-grass                  | 4   | 
+| Grass + PostgreSQL +  PostGIS + R                    | grass:postgresql-postgis                 | r              | grass:postgresql-postgis-r               | 4   | 
+| Grass + PostgreSQL + R + R_Geo_Libs                  | grass:postgresql-r                       | rgeolibs       | grass:postgresql-r-rgeolibs              | 4   | 
+| Gdal + Grass + PostgreSQL + R + R_Geo_Libs           | gdal:grass-postgresql-r                  | rgeolibs       | gdal:grass-postgresql-r-rgeolibs         | 5   | 
+| Gdal + PostgreSQL + PostGIS + R + Grass              | gdal:postgresql-postgis-r-grass          | grass          | gdal:postgresql-postgis-r-grass          | 5   | 
+| Grass + PostgreSQL + R + PostGIS +  R_Geo_Libs       | grass:postgresql-postgis-r               | rgeolibs       | grass:postgresql-postgis-r-rgeolibs      | 5   | 
+| Gdal + PostgreSQL + PostGIS + R + Grass + R_Geo_Libs | gdal:postgresql-postgis-r-grass-rgeolibs | rgeolibs       | gdal:postgresql-postgis-r-grass-rgeolibs | 6   | 

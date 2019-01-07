@@ -1,0 +1,42 @@
+language: bash
+sudo: required
+services:
+  - docker
+env:
+  global:
+    - CONTAINER_IMAGE_1=gdal
+    - CONTAINER_IMAGE_2=grass
+    - CONTAINER_IMAGE_3=postgresql
+    - CONTAINER_IMAGE_4=r
+
+jobs:
+  include:
+    - stage: 'Primary images'
+      before_script:
+        - export BUILD_DATE=$(date '+%d/%m/%Y %T UTC' -u)
+        - docker pull $USERNAME/$CONTAINER_IMAGE_1:latest || true
+        - docker pull $USERNAME/$CONTAINER_IMAGE_2:latest || true
+        - docker pull $USERNAME/$CONTAINER_IMAGE_3:latest || true
+
+      script:
+        - docker build --cache-from $USERNAME/$CONTAINER_IMAGE_1:latest --build-arg BUILD_DATE="${BUILD_DATE}" --build-arg TRAVIS_COMMIT="${TRAVIS_COMMIT}" --tag $USERNAME/$CONTAINER_IMAGE_1:$TRAVIS_COMMIT --tag $USERNAME/$CONTAINER_IMAGE_1:latest -f stage_1_primary_images/Dockerfile.gdal .
+        - docker build --cache-from $USERNAME/$CONTAINER_IMAGE_2:latest --build-arg BUILD_DATE="${BUILD_DATE}" --build-arg TRAVIS_COMMIT="${TRAVIS_COMMIT}" --tag $USERNAME/$CONTAINER_IMAGE_2:$TRAVIS_COMMIT --tag $USERNAME/$CONTAINER_IMAGE_2:latest -f stage_1_primary_images/Dockerfile.postgresql .
+        - docker build --cache-from $USERNAME/$CONTAINER_IMAGE_3:latest --build-arg BUILD_DATE="${BUILD_DATE}" --build-arg TRAVIS_COMMIT="${TRAVIS_COMMIT}" --tag $USERNAME/$CONTAINER_IMAGE_3:$TRAVIS_COMMIT --tag $USERNAME/$CONTAINER_IMAGE_3:latest -f stage_1_primary_images/Dockerfile.r .
+
+      after_script:
+        - docker images
+
+      before_deploy:
+        - echo $PASSWORD | docker login -u $USERNAME --password-stdin
+
+      deploy:
+        provider: script
+        script: 
+          - docker push $USERNAME/$CONTAINER_IMAGE_1:$TRAVIS_COMMIT && docker push $USERNAME/$CONTAINER_IMAGE_1:latest
+          - docker push $USERNAME/$CONTAINER_IMAGE_2:$TRAVIS_COMMIT && docker push $USERNAME/$CONTAINER_IMAGE_2:latest
+          - docker push $USERNAME/$CONTAINER_IMAGE_3:$TRAVIS_COMMIT && docker push $USERNAME/$CONTAINER_IMAGE_3:latest
+        on:
+          branch: master
+
+      after_deploy:
+        - curl --header "Content-Type: application/json" --request POST --data '{}' https://hooks.microbadger.com/images/autimio/postgis/hash
