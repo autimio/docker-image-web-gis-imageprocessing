@@ -12,32 +12,32 @@ env:
 jobs:
   include:
     - stage: 'Primary images'
-      before_script: ./stage_1_primary_images/before_script/script_gdal.sh 1
-      before_script: ./stage_1_primary_images/before_script/script_grass.sh 2
-      before_script: ./stage_1_primary_images/before_script/script_postgresql.sh 3
-      before_script: ./stage_1_primary_images/before_script/script_r.sh 4
+      before_script: ./stage_1_primary_images/before_script/script_gdal 1
+      before_script: ./stage_1_primary_images/before_script/script_grass 2
+      before_script: ./stage_1_primary_images/before_script/script_postgresql 3
+      before_script: ./stage_1_primary_images/before_script/script_r 4
 
-      script: ./stage_1_primary_images/script/script_gdal.sh 1
-      script: ./stage_1_primary_images/script/script_grass.sh 2
-      script: ./stage_1_primary_images/script/script_postgresql.sh 3
-      script: ./stage_1_primary_images/script/script_r.sh 4
+      script: ./stage_1_primary_images/script/script_gdal 1
+      script: ./stage_1_primary_images/script/script_grass 2
+      script: ./stage_1_primary_images/script/script_postgresql 3
+      script: ./stage_1_primary_images/script/script_r 4
 
-      after_script: ./stage_1_primary_images/after_script/script.sh 1
-      after_script: ./stage_1_primary_images/after_script/script.sh 2
-      after_script: ./stage_1_primary_images/after_script/script.sh 3
-      after_script: ./stage_1_primary_images/after_script/script.sh 4
+      after_script: ./stage_1_primary_images/after_script/script 1
+      after_script: ./stage_1_primary_images/after_script/script 2
+      after_script: ./stage_1_primary_images/after_script/script 3
+      after_script: ./stage_1_primary_images/after_script/script 4
 
-      before_deploy: ./stage_1_primary_images/before_deploy/script.sh 1
-      before_deploy: ./stage_1_primary_images/before_deploy/script.sh 2
-      before_deploy: ./stage_1_primary_images/before_deploy/script.sh 3
-      before_deploy: ./stage_1_primary_images/before_deploy/script.sh 4
+      before_deploy: ./stage_1_primary_images/before_deploy/script 1
+      before_deploy: ./stage_1_primary_images/before_deploy/script 2
+      before_deploy: ./stage_1_primary_images/before_deploy/script 3
+      before_deploy: ./stage_1_primary_images/before_deploy/script 4
 
       deploy:
         provider: script
-        script: ./stage_1_primary_images/deploy/script_gdal.sh 1
-        script: ./stage_1_primary_images/deploy/script_grass.sh 2
-        script: ./stage_1_primary_images/deploy/script_postgresql.sh 3
-        script: ./stage_1_primary_images/deploy/script_r.sh 4
+        script: ./stage_1_primary_images/deploy/script_gdal 1
+        script: ./stage_1_primary_images/deploy/script_grass 2
+        script: ./stage_1_primary_images/deploy/script_postgresql 3
+        script: ./stage_1_primary_images/deploy/script_r 4
 
         on:
           branch: master
