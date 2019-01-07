@@ -8,6 +8,7 @@ ENV LANG pt_BR.UTF-8
 
 # Install basic dependencies
 RUN apt-get update -y && apt-get install -y \
+    build-essential \
     wget \
     bash-completion \
     cmake \
