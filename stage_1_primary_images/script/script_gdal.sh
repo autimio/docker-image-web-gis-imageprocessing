@@ -1,0 +1,1 @@
+docker build --cache-from $USERNAME/$CONTAINER_IMAGE_1:latest --build-arg BUILD_DATE="${BUILD_DATE}" --build-arg TRAVIS_COMMIT="${TRAVIS_COMMIT}" --tag $USERNAME/$CONTAINER_IMAGE_1:$TRAVIS_COMMIT --tag $USERNAME/$CONTAINER_IMAGE_1:latest -f Dockerfile.gdal .

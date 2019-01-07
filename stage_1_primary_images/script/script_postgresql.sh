@@ -1,0 +1,1 @@
+docker build --cache-from $USERNAME/$CONTAINER_IMAGE_3:latest --build-arg BUILD_DATE="${BUILD_DATE}" --build-arg TRAVIS_COMMIT="${TRAVIS_COMMIT}" --tag $USERNAME/$CONTAINER_IMAGE_3:$TRAVIS_COMMIT --tag $USERNAME/$CONTAINER_IMAGE_3:latest -f Dockerfile.postgresql .

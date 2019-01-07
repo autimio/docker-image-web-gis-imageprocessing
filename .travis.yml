@@ -12,97 +12,33 @@ env:
 jobs:
   include:
     - stage: 'Primary images'
-      before_script:
-        - export BUILD_DATE=$(date '+%d/%m/%Y %T UTC' -u)
-        - docker pull $USERNAME/$CONTAINER_IMAGE_1:latest || true
+      before_script: ./stage_1_primary_images/before_script/script_gdal.sh 1
+      before_script: ./stage_1_primary_images/before_script/script_grass.sh 2
+      before_script: ./stage_1_primary_images/before_script/script_postgresql.sh 3
+      before_script: ./stage_1_primary_images/before_script/script_r.sh 4
 
-      script:
-        - docker build --cache-from $USERNAME/$CONTAINER_IMAGE_1:latest --build-arg BUILD_DATE="${BUILD_DATE}" --build-arg TRAVIS_COMMIT="${TRAVIS_COMMIT}" --tag $USERNAME/$CONTAINER_IMAGE_1:$TRAVIS_COMMIT --tag $USERNAME/$CONTAINER_IMAGE_1:latest -f stage_1_primary_images/Dockerfile.gdal .
+      script: ./stage_1_primary_images/script/script_gdal.sh 1
+      script: ./stage_1_primary_images/script/script_grass.sh 2
+      script: ./stage_1_primary_images/script/script_postgresql.sh 3
+      script: ./stage_1_primary_images/script/script_r.sh 4
 
-      after_script:
-        - docker images
+      after_script: ./stage_1_primary_images/after_script/script.sh 1
+      after_script: ./stage_1_primary_images/after_script/script.sh 2
+      after_script: ./stage_1_primary_images/after_script/script.sh 3
+      after_script: ./stage_1_primary_images/after_script/script.sh 4
 
-      before_deploy:
-        - echo $PASSWORD | docker login -u $USERNAME --password-stdin
-
-      deploy:
-        provider: script
-        script: 
-          - docker push $USERNAME/$CONTAINER_IMAGE_1:$TRAVIS_COMMIT && docker push $USERNAME/$CONTAINER_IMAGE_1:latest
-
-        on:
-          branch: master
-
-      after_deploy:
-        - curl --header "Content-Type: application/json" --request POST --data '{}' https://hooks.microbadger.com/images/autimio/postgis/hash
-
-    - stage: 'Primary images'
-      before_script:
-        - export BUILD_DATE=$(date '+%d/%m/%Y %T UTC' -u)
-        - docker pull $USERNAME/$CONTAINER_IMAGE_2:latest || true
-
-      script:
-        - docker build --cache-from $USERNAME/$CONTAINER_IMAGE_2:latest --build-arg BUILD_DATE="${BUILD_DATE}" --build-arg TRAVIS_COMMIT="${TRAVIS_COMMIT}" --tag $USERNAME/$CONTAINER_IMAGE_2:$TRAVIS_COMMIT --tag $USERNAME/$CONTAINER_IMAGE_2:latest -f stage_1_primary_images/Dockerfile.grass .
-
-      after_script:
-        - docker images
-
-      before_deploy:
-        - echo $PASSWORD | docker login -u $USERNAME --password-stdin
+      before_deploy: ./stage_1_primary_images/before_deploy/script.sh 1
+      before_deploy: ./stage_1_primary_images/before_deploy/script.sh 2
+      before_deploy: ./stage_1_primary_images/before_deploy/script.sh 3
+      before_deploy: ./stage_1_primary_images/before_deploy/script.sh 4
 
       deploy:
         provider: script
-        script: 
-          - docker push $USERNAME/$CONTAINER_IMAGE_2:$TRAVIS_COMMIT && docker push $USERNAME/$CONTAINER_IMAGE_2:latest
+        script: ./stage_1_primary_images/deploy/script_gdal.sh 1
+        script: ./stage_1_primary_images/deploy/script_grass.sh 2
+        script: ./stage_1_primary_images/deploy/script_postgresql.sh 3
+        script: ./stage_1_primary_images/deploy/script_r.sh 4
 
-        on:
-          branch: master
-
-      after_deploy:
-        - curl --header "Content-Type: application/json" --request POST --data '{}' https://hooks.microbadger.com/images/autimio/postgis/hash
-    
-    - stage: 'Primary images'
-      before_script:
-        - export BUILD_DATE=$(date '+%d/%m/%Y %T UTC' -u)
-        - docker pull $USERNAME/$CONTAINER_IMAGE_3:latest || true
-
-      script:
-        - docker build --cache-from $USERNAME/$CONTAINER_IMAGE_3:latest --build-arg BUILD_DATE="${BUILD_DATE}" --build-arg TRAVIS_COMMIT="${TRAVIS_COMMIT}" --tag $USERNAME/$CONTAINER_IMAGE_3:$TRAVIS_COMMIT --tag $USERNAME/$CONTAINER_IMAGE_3:latest -f stage_1_primary_images/Dockerfile.postgresql .
-
-      after_script:
-        - docker images
-
-      before_deploy:
-        - echo $PASSWORD | docker login -u $USERNAME --password-stdin
-
-      deploy:
-        provider: script
-        script: 
-          - docker push $USERNAME/$CONTAINER_IMAGE_3:$TRAVIS_COMMIT && docker push $USERNAME/$CONTAINER_IMAGE_3:latest
-        on:
-          branch: master
-
-      after_deploy:
-        - curl --header "Content-Type: application/json" --request POST --data '{}' https://hooks.microbadger.com/images/autimio/postgis/hash
-
-    - stage: 'Primary images'
-      before_script:
-        - export BUILD_DATE=$(date '+%d/%m/%Y %T UTC' -u)
-        - docker pull $USERNAME/$CONTAINER_IMAGE_4:latest || true
-
-      script:
-        - docker build --cache-from $USERNAME/$CONTAINER_IMAGE_4:latest --build-arg BUILD_DATE="${BUILD_DATE}" --build-arg TRAVIS_COMMIT="${TRAVIS_COMMIT}" --tag $USERNAME/$CONTAINER_IMAGE_4:$TRAVIS_COMMIT --tag $USERNAME/$CONTAINER_IMAGE_4:latest -f stage_1_primary_images/Dockerfile.r .
-
-      after_script:
-        - docker images
-
-      before_deploy:
-        - echo $PASSWORD | docker login -u $USERNAME --password-stdin
-
-      deploy:
-        provider: script
-        script: 
-          - docker push $USERNAME/$CONTAINER_IMAGE_4:$TRAVIS_COMMIT && docker push $USERNAME/$CONTAINER_IMAGE_4:latest
         on:
           branch: master
 
