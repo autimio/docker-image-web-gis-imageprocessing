@@ -17,7 +17,7 @@ jobs:
         - docker pull $USERNAME/$CONTAINER_IMAGE_1:latest || true
 
       script:
-        - docker build --cache-from $USERNAME/$CONTAINER_IMAGE_1:latest --build-arg BUILD_DATE="${BUILD_DATE}" --build-arg TRAVIS_COMMIT="${TRAVIS_COMMIT}" --tag $USERNAME/$CONTAINER_IMAGE_1:$TRAVIS_COMMIT --tag $USERNAME/$CONTAINER_IMAGE_1:latest -f /stage_1_primary_images/Dockerfile.gdal .
+        - docker build --cache-from $USERNAME/$CONTAINER_IMAGE_1:latest --build-arg BUILD_DATE="${BUILD_DATE}" --build-arg TRAVIS_COMMIT="${TRAVIS_COMMIT}" --tag $USERNAME/$CONTAINER_IMAGE_1:$TRAVIS_COMMIT --tag $USERNAME/$CONTAINER_IMAGE_1:latest -f stage_1_primary_images/Dockerfile.gdal .
 
       after_script:
         - docker images
@@ -42,7 +42,7 @@ jobs:
         - docker pull $USERNAME/$CONTAINER_IMAGE_2:latest || true
 
       script:
-        - docker build --cache-from $USERNAME/$CONTAINER_IMAGE_2:latest --build-arg BUILD_DATE="${BUILD_DATE}" --build-arg TRAVIS_COMMIT="${TRAVIS_COMMIT}" --tag $USERNAME/$CONTAINER_IMAGE_2:$TRAVIS_COMMIT --tag $USERNAME/$CONTAINER_IMAGE_2:latest -f /stage_1_primary_images/Dockerfile.grass .
+        - docker build --cache-from $USERNAME/$CONTAINER_IMAGE_2:latest --build-arg BUILD_DATE="${BUILD_DATE}" --build-arg TRAVIS_COMMIT="${TRAVIS_COMMIT}" --tag $USERNAME/$CONTAINER_IMAGE_2:$TRAVIS_COMMIT --tag $USERNAME/$CONTAINER_IMAGE_2:latest -f stage_1_primary_images/Dockerfile.grass .
 
       after_script:
         - docker images
@@ -67,7 +67,7 @@ jobs:
         - docker pull $USERNAME/$CONTAINER_IMAGE_3:latest || true
 
       script:
-        - docker build --cache-from $USERNAME/$CONTAINER_IMAGE_3:latest --build-arg BUILD_DATE="${BUILD_DATE}" --build-arg TRAVIS_COMMIT="${TRAVIS_COMMIT}" --tag $USERNAME/$CONTAINER_IMAGE_3:$TRAVIS_COMMIT --tag $USERNAME/$CONTAINER_IMAGE_3:latest -f /stage_1_primary_images/Dockerfile.postgresql .
+        - docker build --cache-from $USERNAME/$CONTAINER_IMAGE_3:latest --build-arg BUILD_DATE="${BUILD_DATE}" --build-arg TRAVIS_COMMIT="${TRAVIS_COMMIT}" --tag $USERNAME/$CONTAINER_IMAGE_3:$TRAVIS_COMMIT --tag $USERNAME/$CONTAINER_IMAGE_3:latest -f stage_1_primary_images/Dockerfile.postgresql .
 
       after_script:
         - docker images
@@ -91,7 +91,7 @@ jobs:
         - docker pull $USERNAME/$CONTAINER_IMAGE_4:latest || true
 
       script:
-        - docker build --cache-from $USERNAME/$CONTAINER_IMAGE_4:latest --build-arg BUILD_DATE="${BUILD_DATE}" --build-arg TRAVIS_COMMIT="${TRAVIS_COMMIT}" --tag $USERNAME/$CONTAINER_IMAGE_4:$TRAVIS_COMMIT --tag $USERNAME/$CONTAINER_IMAGE_4:latest -f /stage_1_primary_images/Dockerfile.r .
+        - docker build --cache-from $USERNAME/$CONTAINER_IMAGE_4:latest --build-arg BUILD_DATE="${BUILD_DATE}" --build-arg TRAVIS_COMMIT="${TRAVIS_COMMIT}" --tag $USERNAME/$CONTAINER_IMAGE_4:$TRAVIS_COMMIT --tag $USERNAME/$CONTAINER_IMAGE_4:latest -f stage_1_primary_images/Dockerfile.r .
 
       after_script:
         - docker images
