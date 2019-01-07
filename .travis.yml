@@ -13,7 +13,5 @@ jobs:
   include:
     - stage: 'Primary images'
 
-      script: sh /stage_1_primary_images/script/script_gdal.sh 1
-      script: sh /stage_1_primary_images/script/script_grass.sh 2
-      script: sh /stage_1_primary_images/script/script_postgresql.sh 3
+      script: ./stage_1_primary_images/script/script_gdal
       
