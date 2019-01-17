@@ -2,18 +2,54 @@ language: bash
 sudo: required
 services:
   - docker
-env:
-  global:
-    - CONTAINER_IMAGE_1=gdal
-    - CONTAINER_IMAGE_2=grass
-    - CONTAINER_IMAGE_3=postgresql
-    - CONTAINER_IMAGE_4=r
+
+# common build steps for each recipe
+defaults: &defaults
+  before_script:
+    - export BUILD_DATE=$(date '+%d/%m/%Y %T UTC' -u)
+    - docker pull $USERNAME/$IMAGE_NAME:latest || true
+
+  script:
+    - docker build --cache-from $USERNAME/$IMAGE_NAME:latest --build-arg BUILD_DATE="${BUILD_DATE}" --build-arg TRAVIS_COMMIT="${TRAVIS_COMMIT}" --tag $USERNAME/$IMAGE_NAME:$TRAVIS_COMMIT --tag $USERNAME/$IMAGE_NAME:latest -f $DOCKERFILE .
+
+  after_script:
+    - docker images
+
+  before_deploy:
+    - echo $PASSWORD | docker login -u $USERNAME --password-stdin
+
+  deploy:
+    provider: script
+    script: docker push $USERNAME/$IMAGE_NAME:$TRAVIS_COMMIT && docker push $USERNAME/$IMAGE_NAME:latest
+    on:
+      branch: master
+
+  after_deploy:
+    - curl --header "Content-Type: application/json" --request POST --data '{}' https://hooks.microbadger.com/images/autimio/postgis/hash
+
 
 jobs:
   include:
-    - stage: 'Primary images'
+    # define a separate script for each "examples/*" folder
+    # this will run it in a separate job on TravisCI
 
-      script: ./stage_1_primary_images/script/script_gdal.sh  --quiet verify
-      script: ./stage_1_primary_images/script/script_grass.sh  --quiet verify
-      script: ./stage_1_primary_images/script/script_postgresql.sh  --quiet verify
-      script: ./stage_1_primary_images/script/script_r.sh  --quiet verify
+    - stage: test
+      env:
+        - IMAGE_NAME=r
+        - DOCKERFILE=stage_1_primary_images/r.dockerfile
+      <<: *defaults
+    - stage: test
+      env:
+        - IMAGE_NAME=gdal
+        - DOCKERFILE=stage_1_primary_images/gdal.dockerfile
+        <<: *defaults
+    - stage: test
+      env:
+        - IMAGE_NAME=grass
+        - DOCKERFILE=stage_1_primary_images/grass.dockerfile
+        <<: *defaults
+    - stage: test
+      env:
+        - IMAGE_NAME=postgres
+        - DOCKERFILE=stage_1_primary_images/postgres.dockerfile
+        <<: *defaults

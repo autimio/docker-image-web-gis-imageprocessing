@@ -1,1 +1,0 @@
-docker push $USERNAME/$CONTAINER_IMAGE_4:$TRAVIS_COMMIT && docker push $USERNAME/$CONTAINER_IMAGE_4:latest
