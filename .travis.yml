@@ -3,7 +3,6 @@ sudo: required
 services:
   - docker
 
-# common build steps for each recipe
 defaults: &defaults
   before_script:
     - export BUILD_DATE=$(date '+%d/%m/%Y %T UTC' -u)
@@ -27,12 +26,8 @@ defaults: &defaults
   after_deploy:
     - curl --header "Content-Type: application/json" --request POST --data '{}' https://hooks.microbadger.com/images/autimio/postgis/hash
 
-
 jobs:
   include:
-    # define a separate script for each "examples/*" folder
-    # this will run it in a separate job on TravisCI
-
     - stage: test
       env:
         - IMAGE_NAME=r
@@ -42,14 +37,14 @@ jobs:
       env:
         - IMAGE_NAME=gdal
         - DOCKERFILE=stage_1_primary_images/gdal.dockerfile
-        <<: *defaults
+      <<: *defaults
     - stage: test
       env:
         - IMAGE_NAME=grass
         - DOCKERFILE=stage_1_primary_images/grass.dockerfile
-        <<: *defaults
+      <<: *defaults
     - stage: test
       env:
         - IMAGE_NAME=postgres
         - DOCKERFILE=stage_1_primary_images/postgres.dockerfile
-        <<: *defaults
+      <<: *defaults
