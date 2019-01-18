@@ -15,7 +15,7 @@ defaults: &defaults
     - docker images
 
   before_deploy:
-    - echo $PASSWORD | docker login -u $USERNAME --password-stdin
+    - echo $PASSWORD | docker login docker.io -u $USERNAME --password-stdin
 
   deploy:
     provider: script
