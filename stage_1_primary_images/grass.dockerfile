@@ -28,17 +28,7 @@ RUN apt-get update \
     && dpkg-reconfigure --frontend noninteractive locales
 
 # Compile and install GDAL and GrassGis
-RUN cd src && tar -xvf gdal-${GDAL_VERSION}.tar.gz && cd gdal-${GDAL_VERSION} \
-    && ./configure --with-python --with-spatialite --with-pg --with-curl \
-    && make && make install && ldconfig \
-    && apt-get update -y \
-    && apt-get remove -y --purge build-essential wget \
-    && cd $ROOTDIR && cd src/gdal-${GDAL_VERSION}/swig/python \
-    && python3 setup.py build \
-    && python3 setup.py install \
-    && cd $ROOTDIR && rm -Rf src/gdal* \
-    && apt-get -y install gdal-bin \
-    && apt-get -y install grass grass-dev \ 
+RUN apt-get -y install grass grass-dev \ 
     && apt-get update
 
 ARG BUILD_DATE=unknown
