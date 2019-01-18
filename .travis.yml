@@ -46,6 +46,6 @@ jobs:
       <<: *defaults
     - stage: test
       env:
-        - IMAGE_NAME=postgres
-        - DOCKERFILE=stage_1_primary_images/postgres.dockerfile
+        - IMAGE_NAME=postgresql
+        - DOCKERFILE=stage_1_primary_images/postgresql.dockerfile
       <<: *defaults
