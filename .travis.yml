@@ -19,7 +19,9 @@ defaults: &defaults
 
   deploy:
     provider: script
-    script: docker push $USERNAME/$IMAGE_NAME:$TRAVIS_COMMIT && docker push $USERNAME/$IMAGE_NAME:latest
+    script:
+      - docker tag latest $USERNAME/$IMAGE_NAME 
+      - docker push $USERNAME/$IMAGE_NAME:$TRAVIS_COMMIT && docker push $USERNAME/$IMAGE_NAME:latest
     on:
       branch: master
 
