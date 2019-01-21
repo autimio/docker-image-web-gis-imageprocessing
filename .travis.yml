@@ -25,7 +25,7 @@ defaults: &defaults
       branch: master
 
   after_deploy:
-    - curl --header "Content-Type: application/json" --request POST --data '{}' "'"$HASH_BADGER"'"
+    - curl --header "Content-Type: application/json" --request POST --data '{}' '"$HASH_BADGER"'
 
 jobs:
   include:
