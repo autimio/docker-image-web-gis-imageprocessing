@@ -33,19 +33,23 @@ jobs:
       env:
         - IMAGE_NAME=tomcat-r
         - DOCKERFILE=stage_1_primary_images/r.dockerfile
+        - HASH_BADGER=https://hooks.microbadger.com/images/autimio/tomcat-r/inwV-kTlqCkxV6WFWesIGRh-cWo=
       <<: *defaults
     - 
       env:
         - IMAGE_NAME=tomcat-gdal
         - DOCKERFILE=stage_1_primary_images/gdal.dockerfile
+        - HASH_BADGER=https://hooks.microbadger.com/images/autimio/tomcat-gdal/z5hoezHBR5xvReNMYl0iH3H50mA=
       <<: *defaults
     - 
       env:
         - IMAGE_NAME=tomcat-grass
         - DOCKERFILE=stage_1_primary_images/grass.dockerfile
+        - HASH_BADGER=https://hooks.microbadger.com/images/autimio/tomcat-grass/D8v8B4fyb_gjaHH06xGkEBNwbEY=
       <<: *defaults
     - 
       env:
         - IMAGE_NAME=tomcat-postgresql
         - DOCKERFILE=stage_1_primary_images/postgresql.dockerfile
+        - HASH_BADGER=https://hooks.microbadger.com/images/autimio/tomcat-postgresql/p646B2SYb4WqzhF_NY3i5-5vnAU=
       <<: *defaults
