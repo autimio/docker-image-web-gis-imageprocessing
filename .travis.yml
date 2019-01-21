@@ -29,22 +29,22 @@ defaults: &defaults
 
 jobs:
   include:
-    - stage: test
+    - stage: Build Primary Images
       env:
         - IMAGE_NAME=tomcat-r
         - DOCKERFILE=stage_1_primary_images/r.dockerfile
       <<: *defaults
-    - stage: test
+    - 
       env:
         - IMAGE_NAME=tomcat-gdal
         - DOCKERFILE=stage_1_primary_images/gdal.dockerfile
       <<: *defaults
-    - stage: test
+    - 
       env:
         - IMAGE_NAME=tomcat-grass
         - DOCKERFILE=stage_1_primary_images/grass.dockerfile
       <<: *defaults
-    - stage: test
+    - 
       env:
         - IMAGE_NAME=tomcat-postgresql
         - DOCKERFILE=stage_1_primary_images/postgresql.dockerfile
