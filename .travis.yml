@@ -25,7 +25,7 @@ defaults: &defaults
       branch: master
 
   after_deploy:
-    - bash sh post_script.sh
+    - bash post_script.sh
 
 jobs:
   include:
