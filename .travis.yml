@@ -25,7 +25,7 @@ defaults: &defaults
       branch: master
 
   after_deploy:
-    - ./post_scriot.sh
+    - bash sh post_script.sh
 
 jobs:
   include:
