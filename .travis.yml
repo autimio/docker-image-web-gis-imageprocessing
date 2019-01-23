@@ -46,6 +46,7 @@ jobs:
     - 
       env:
         - IMAGE_NAME=tomcat-grass
+        - TAG=latest
         - DOCKERFILE=stage_1_primary_images/grass.dockerfile
         - LINK_BADGER=https://hooks.microbadger.com/images/autimio/tomcat-grass/D8v8B4fyb_gjaHH06xGkEBNwbEY=
       <<: *defaults
