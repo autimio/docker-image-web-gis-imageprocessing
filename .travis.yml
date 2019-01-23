@@ -6,10 +6,10 @@ services:
 defaults: &defaults
   before_script:
     - export BUILD_DATE=$(date '+%d/%m/%Y %T UTC' -u)
-    - docker pull $USERNAME/$IMAGE_NAME:latest || true
+    - docker pull $USERNAME/$IMAGE_NAME:$TAG || true
 
   script:
-    - docker build --cache-from $USERNAME/$IMAGE_NAME:latest --build-arg BUILD_DATE="${BUILD_DATE}" --build-arg TRAVIS_COMMIT="${TRAVIS_COMMIT}" --tag $USERNAME/$IMAGE_NAME:$TRAVIS_COMMIT --tag $USERNAME/$IMAGE_NAME:latest -f $DOCKERFILE .
+    - docker build --cache-from $USERNAME/$IMAGE_NAME:$TAG --build-arg BUILD_DATE="${BUILD_DATE}" --build-arg TRAVIS_COMMIT="${TRAVIS_COMMIT}" --tag $USERNAME/$IMAGE_NAME:$TRAVIS_COMMIT --tag $USERNAME/$IMAGE_NAME:$TAG -f $DOCKERFILE .
 
   after_script:
     - docker images
@@ -20,7 +20,7 @@ defaults: &defaults
   deploy:
     provider: script
     script:
-      - docker push $USERNAME/$IMAGE_NAME:$TRAVIS_COMMIT && docker push $USERNAME/$IMAGE_NAME:latest
+      - docker push $USERNAME/$IMAGE_NAME:$TRAVIS_COMMIT && docker push $USERNAME/$IMAGE_NAME:$TAG
     on:
       branch: master
 
@@ -32,12 +32,14 @@ jobs:
     - stage: Build Primary Images
       env:
         - IMAGE_NAME=tomcat-r
+        - TAG=latest
         - DOCKERFILE=stage_1_primary_images/r.dockerfile
         - LINK_BADGER=https://hooks.microbadger.com/images/autimio/tomcat-r/inwV-kTlqCkxV6WFWesIGRh-cWo=
       <<: *defaults
     - 
       env:
         - IMAGE_NAME=tomcat-gdal
+        - TAG=latest
         - DOCKERFILE=stage_1_primary_images/gdal.dockerfile
         - LINK_BADGER=https://hooks.microbadger.com/images/autimio/tomcat-gdal/z5hoezHBR5xvReNMYl0iH3H50mA=
       <<: *defaults
@@ -50,6 +52,22 @@ jobs:
     - 
       env:
         - IMAGE_NAME=tomcat-postgresql
+        - TAG=latest
         - DOCKERFILE=stage_1_primary_images/postgresql.dockerfile
         - LINK_BADGER=https://hooks.microbadger.com/images/autimio/tomcat-postgresql/p646B2SYb4WqzhF_NY3i5-5vnAU=
+      <<: *defaults
+
+    - stage: Build Secondary Images
+      env:
+        - IMAGE_NAME=tomcat-gdal
+        - TAG=grass
+        - DOCKERFILE=stage_2_secondary_images/gdal_grass.dockerfile
+        - LINK_BADGER=https://hooks.microbadger.com/images/autimio/tomcat-gdal/z5hoezHBR5xvReNMYl0iH3H50mA=
+      <<: *defaults
+    - 
+      env:
+        - IMAGE_NAME=tomcat-gdal
+        - TAG=postgres
+        - DOCKERFILE=stage_2_secondary_images/gdal_postgresql.dockerfile
+        - LINK_BADGER=https://hooks.microbadger.com/images/autimio/tomcat-gdal/z5hoezHBR5xvReNMYl0iH3H50mA=
       <<: *defaults
