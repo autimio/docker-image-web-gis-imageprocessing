@@ -1,9 +1,9 @@
 FROM tomcat:8.5
 
 ENV ROOTDIR /usr/local/
-ENV LANG pt_BR.UTF-8 
-ENV LANGUAGE pt_BR 
-ENV LC_ALL pt_BR.UTF-8 
+ENV LANG pt_BR.UTF-8
+ENV LANGUAGE pt_BR
+ENV LC_ALL pt_BR.UTF-8
 ENV LANG pt_BR.UTF-8
 
 # Install basic dependencies
@@ -40,7 +40,7 @@ ARG TRAVIS_COMMIT=unknown
 LABEL org.label-schema.build-date=$BUILD_DATE \
           org.label-schema.name="Web, GIS and image processing Docker Image" \
           org.label-schema.description="SGS Docker image for Web, GIS and image processing" \
-          org.label-schema.url="https://hub.docker.com/r/autimio/postgresql" \
+          org.label-schema.url="https://hub.docker.com/r/autimio/tomcat-postgresql" \
           org.label-schema.vcs-ref=$TRAVIS_COMMIT \
           org.label-schema.vcs-url="https://github.com/autimio/docker-image-web-gis-imageprocessing" \
           org.label-schema.vendor="Autímio Meira Brito Filho" \
